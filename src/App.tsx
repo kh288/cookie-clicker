@@ -62,17 +62,18 @@ function App() {
       <div className="grid gap-2 p-3">
         <h1 className="text-center text-4xl">Cookie Clicker</h1>
         <div className="grid bg-slate-700 p-2 rounded rim-light">
-          <h2 className="text-2xl">Upgrades</h2>
-          <code>toaster: 8</code>
-          <code>toasterOven: 32</code>
-          <code>oven: 128</code>
-          <code>industrialOven: 512</code>
+          <h2 className="text-2xl">Upgrade Costs</h2>
+          <code>{upgradeCosts.toaster.display}: 1 🍪/s</code>
+          <code>{upgradeCosts.toasterOven.display}: 8 🍪/s</code>
+          <code>{upgradeCosts.oven.display}: 32 🍪/s</code>
+          <code>{upgradeCosts.industrialOven.display}: 128 🍪/s</code>
         </div>
 
         <div className="grid">
           {Object.entries(currentUpgrades).map(([key, value]) => (
             <p key={key}>
-              {key}: {value}
+              {/* @ts-ignore */}
+              {upgradeCosts[key].display}: {value}
             </p>
           ))}
         </div>
