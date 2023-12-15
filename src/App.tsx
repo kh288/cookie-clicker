@@ -65,23 +65,28 @@ function App() {
         </div>
 
         <div className="flex gap-2 items-center">
-          <button
-            onClick={() => {
-              addCookies(1);
-            }}
-            className="btn">
-            Add
-          </button>
-          <button
-            className="btn"
-            onClick={() => {
-              buyUpgrade("toaster");
-            }}>
-            Toaster
-          </button>
+          {Object.entries(upgradeCosts).map(([key, value]) => (
+            <button
+              key={key}
+              className="btn"
+              onClick={() => {
+                buyUpgrade(`${key}`);
+              }}>
+              <p>{key}</p>
+              <p>${value}</p>
+            </button>
+          ))}
         </div>
 
-        <div className="flex">
+        <button
+          onClick={() => {
+            addCookies(1);
+          }}
+          className="btn">
+          Bake Cookie
+        </button>
+
+        <div className="flex justify-center bg-slate-600 rounded p-3 rim-light">
           <h2 className="text-4xl">🍪</h2>
           <h2 className="font-mono text-4xl">{cookies}</h2>
         </div>
