@@ -19,16 +19,16 @@ function App() {
     industrialOven: 0,
   });
 
+  const upgradeCosts = {
+    toaster: { cost: 8, display: "Toaster", value: 1 },
+    toasterOven: { cost: 32, display: "Toaster Oven", value: 8 },
+    oven: { cost: 128, display: "Oven", value: 32 },
+    industrialOven: { cost: 512, display: "Industrial Oven", value: 128 },
+  };
+
   function addCookies(input: number) {
     setCookies(cookies + input);
   }
-
-  const upgradeCosts: Record<UpgradeKeys, number> = {
-    toaster: 8,
-    toasterOven: 32,
-    oven: 128,
-    industrialOven: 512,
-  };
 
   function isUpgradeKey(key: any): key is UpgradeKeys {
     return key in upgradeCosts;
@@ -36,12 +36,16 @@ function App() {
 
   function buyUpgrade(upgradeChoice: string) {
     if (isUpgradeKey(upgradeChoice)) {
-      setCurrentUpgrades((currentUpgrades) => ({
-        ...currentUpgrades,
-        [upgradeChoice]: currentUpgrades[upgradeChoice] + 1,
-      }));
-    } else {
-      console.log("Upgrade choice is not valid.");
+      // Check if the user has enough money and add the upgrade
+      if (upgradeCosts[upgradeChoice].cost <= money) {
+        // Subtract the cost
+        setMoney(money - upgradeCosts[upgradeChoice].cost);
+        // Update current upgrades
+        setCurrentUpgrades((currentUpgrades) => ({
+          ...currentUpgrades,
+          [upgradeChoice]: currentUpgrades[upgradeChoice] + 1,
+        }));
+      }
     }
   }
 
@@ -74,15 +78,15 @@ function App() {
         </div>
 
         <div className="flex gap-2 items-center">
-          {Object.entries(upgradeCosts).map(([key, value]) => (
+          {Object.entries(upgradeCosts).map(([key, upgrade]) => (
             <button
               key={key}
               className="btn"
               onClick={() => {
                 buyUpgrade(`${key}`);
               }}>
-              <p>{key}</p>
-              <p>${value}</p>
+              <p>{upgrade.display}</p>
+              <p>${upgrade.cost}</p>
             </button>
           ))}
         </div>
@@ -90,17 +94,17 @@ function App() {
         <div className="flex gap-2">
           <button
             onClick={() => {
-              addCookies(1);
-            }}
-            className="btn">
-            Bake Cookie
-          </button>
-          <button
-            onClick={() => {
               sellCookies();
             }}
             className="btn">
             Sell Cookies
+          </button>
+          <button
+            onClick={() => {
+              addCookies(1);
+            }}
+            className="btn">
+            Bake Cookie
           </button>
         </div>
 
