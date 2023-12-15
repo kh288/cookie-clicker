@@ -11,6 +11,7 @@ type UpgradeKeys = "toaster" | "toasterOven" | "oven" | "industrialOven";
 
 function App() {
   const [cookies, setCookies] = useState(0);
+  const [money, setMoney] = useState(0);
   const [currentUpgrades, setCurrentUpgrades] = useState<upgradeType>({
     toaster: 0,
     toasterOven: 0,
@@ -44,12 +45,20 @@ function App() {
     }
   }
 
+  function sellCookies() {
+    const minusThis = cookies % 5;
+    const tempCookies = cookies - minusThis;
+
+    setMoney(money + tempCookies / 5);
+    setCookies(0 + minusThis);
+  }
+
   return (
     <main className="max-w-[800px] m-auto">
-      <div className="grid gap-3 p-3">
+      <div className="grid gap-2 p-3">
         <h1 className="text-center text-4xl">Cookie Clicker</h1>
         <div className="grid bg-slate-700 p-2 rounded rim-light">
-          <h2 className="text-2xl">Upgrades in Ticks</h2>
+          <h2 className="text-2xl">Upgrades</h2>
           <code>toaster: 8</code>
           <code>toasterOven: 32</code>
           <code>oven: 128</code>
@@ -78,17 +87,32 @@ function App() {
           ))}
         </div>
 
-        <button
-          onClick={() => {
-            addCookies(1);
-          }}
-          className="btn">
-          Bake Cookie
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={() => {
+              addCookies(1);
+            }}
+            className="btn">
+            Bake Cookie
+          </button>
+          <button
+            onClick={() => {
+              sellCookies();
+            }}
+            className="btn">
+            Sell Cookies
+          </button>
+        </div>
 
-        <div className="flex justify-center bg-slate-600 rounded p-3 rim-light">
-          <h2 className="text-4xl">🍪</h2>
-          <h2 className="font-mono text-4xl">{cookies}</h2>
+        <div className="flex justify-evenly bg-slate-600 rounded p-3 shadow-inner ">
+          <div className="flex">
+            <h3 className="text-4xl">💵</h3>
+            <h3 className="font-mono text-4xl">{money}</h3>
+          </div>
+          <div className="flex">
+            <h3 className="text-4xl">🍪</h3>
+            <h3 className="font-mono text-4xl">{cookies}</h3>
+          </div>
         </div>
       </div>
     </main>
