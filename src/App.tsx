@@ -1,30 +1,22 @@
-import { useState } from "react";
-
-type upgradeType = {
-  toaster: number;
-  toasterOven: number;
-  oven: number;
-  industrialOven: number;
-};
-
-type UpgradeKeys = "toaster" | "toasterOven" | "oven" | "industrialOven";
+import { useEffect, useState } from "react";
+import { upgradeCosts } from "./data/upgrades";
+import UpgradeCosts from "./components/UpgradeCosts";
+import DisplayResources from "./components/DisplayResources";
+import type { upgradeType, UpgradeKeys } from "./data/upgrades";
 
 function App() {
   const [cookies, setCookies] = useState(0);
   const [money, setMoney] = useState(0);
+  const [cookieRate, setCookieRate] = useState(0);
   const [currentUpgrades, setCurrentUpgrades] = useState<upgradeType>({
     toaster: 0,
     toasterOven: 0,
     oven: 0,
     industrialOven: 0,
+    superOven: 0,
+    omegaOven: 0,
+    gigaOven: 0,
   });
-
-  const upgradeCosts = {
-    toaster: { cost: 8, display: "Toaster", value: 1 },
-    toasterOven: { cost: 32, display: "Toaster Oven", value: 8 },
-    oven: { cost: 128, display: "Oven", value: 32 },
-    industrialOven: { cost: 512, display: "Industrial Oven", value: 128 },
-  };
 
   function addCookies(input: number) {
     setCookies(cookies + input);
@@ -57,67 +49,77 @@ function App() {
     setCookies(0 + minusThis);
   }
 
+  useEffect(() => {
+    // Set up an interval to update the state every 1 second
+    let currentQuantity = 0;
+    const interval = setInterval(() => {
+      // Map through each of the key value pairs in the currentUpgrades and apply the upgrade values
+      Object.entries(currentUpgrades).map((upgrade) => {
+        // @ts-ignore
+        currentQuantity += upgrade[1] * upgradeCosts[upgrade[0]].value;
+      });
+      setCookies((cookies) => cookies + currentQuantity);
+      setCookieRate(currentQuantity);
+      currentQuantity = 0;
+    }, 1000);
+    // Clean up the interval on component unmount
+    return () => clearInterval(interval);
+  }, [currentUpgrades]);
+
   return (
-    <main className="max-w-[800px] m-auto">
+    <main className="max-w-[847px] m-auto">
       <div className="grid gap-2 p-3">
         <h1 className="text-center text-4xl">Cookie Clicker</h1>
-        <div className="grid bg-slate-700 p-2 rounded rim-light">
-          <h2 className="text-2xl">Upgrade Costs</h2>
-          <code>{upgradeCosts.toaster.display}: 1 🍪/s</code>
-          <code>{upgradeCosts.toasterOven.display}: 8 🍪/s</code>
-          <code>{upgradeCosts.oven.display}: 32 🍪/s</code>
-          <code>{upgradeCosts.industrialOven.display}: 128 🍪/s</code>
-        </div>
+
+        <UpgradeCosts />
 
         <div className="grid">
           {Object.entries(currentUpgrades).map(([key, value]) => (
             <p key={key}>
-              {/* @ts-ignore */}
+              {/* @ts-ignore TODO: FIX THIS TYPE ISSUE */}
               {upgradeCosts[key].display}: {value}
             </p>
           ))}
         </div>
 
-        <div className="flex gap-2 items-center">
+        <div className="rounded rim-light p-2 bg-slate-700">
+          <h2>Cookies per second: {cookieRate.toLocaleString("en-US")} 🍪/s</h2>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 items-center">
           {Object.entries(upgradeCosts).map(([key, upgrade]) => (
             <button
               key={key}
-              className="btn"
+              className="btn btn-blue"
               onClick={() => {
                 buyUpgrade(`${key}`);
               }}>
               <p>{upgrade.display}</p>
-              <p>${upgrade.cost}</p>
+              <p>${upgrade.cost.toLocaleString("en-US")}</p>
             </button>
           ))}
         </div>
+
+        <DisplayResources
+          money={money}
+          cookies={cookies}
+        />
 
         <div className="flex gap-2">
           <button
             onClick={() => {
               sellCookies();
             }}
-            className="btn">
+            className="btn btn-green w-full">
             Sell Cookies
           </button>
           <button
             onClick={() => {
               addCookies(1);
             }}
-            className="btn">
+            className="btn btn-red w-full">
             Bake Cookie
           </button>
-        </div>
-
-        <div className="flex justify-evenly bg-slate-600 rounded p-3 shadow-inner ">
-          <div className="flex">
-            <h3 className="text-4xl">💵</h3>
-            <h3 className="font-mono text-4xl">{money}</h3>
-          </div>
-          <div className="flex">
-            <h3 className="text-4xl">🍪</h3>
-            <h3 className="font-mono text-4xl">{cookies}</h3>
-          </div>
         </div>
       </div>
     </main>
