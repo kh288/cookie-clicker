@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { upgradeCosts } from "./data/upgrades";
-import UpgradeCosts from "./components/UpgradeCosts";
 import DisplayResources from "./components/DisplayResources";
 import type { upgradeType, UpgradeKeys } from "./data/upgrades";
 
@@ -71,9 +70,8 @@ function App() {
       <div className="grid gap-2 p-3">
         <h1 className="text-center text-4xl">Cookie Clicker</h1>
 
-        <UpgradeCosts />
-
         <div className="grid">
+          <h2 className="text-2xl">Your upgrades</h2>
           {Object.entries(currentUpgrades).map(([key, value]) => (
             <p key={key}>
               {/* @ts-ignore TODO: FIX THIS TYPE ISSUE */}
@@ -83,7 +81,10 @@ function App() {
         </div>
 
         <div className="rounded rim-light p-2 bg-slate-700">
-          <h2>Cookies per second: {cookieRate.toLocaleString("en-US")} 🍪/s</h2>
+          <p className="text-center">Cookies per second</p>
+          <h2 className="text-4xl grid justify-end">
+            {cookieRate.toLocaleString("en-US")} 🍪/s
+          </h2>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 items-center">
@@ -95,7 +96,10 @@ function App() {
                 buyUpgrade(`${key}`);
               }}>
               <p>{upgrade.display}</p>
-              <p>${upgrade.cost.toLocaleString("en-US")}</p>
+              <div className="flex justify-around">
+                <p>${upgrade.cost.toLocaleString("en-US")}</p>
+                <p>{upgrade.value} 🍪/s</p>
+              </div>
             </button>
           ))}
         </div>
