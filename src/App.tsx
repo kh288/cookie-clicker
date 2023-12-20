@@ -21,6 +21,10 @@ function App() {
     omegaOven: 0,
     gigaOven: 0,
     ultraOven: 0,
+    lavaPit: 0,
+    infernoPit: 0,
+    hellPit: 0,
+    tacoBell: 0,
   });
 
   function addCookies(input: number) {

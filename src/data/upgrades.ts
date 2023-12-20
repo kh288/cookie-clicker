@@ -7,9 +7,25 @@ export type upgradeType = {
   omegaOven: number;
   gigaOven: number;
   ultraOven: number;
+  lavaPit: number;
+  infernoPit: number;
+  hellPit: number;
+  tacoBell: number;
 };
 
-export type UpgradeKeys = "toaster" | "toasterOven" | "oven" | "industrialOven" | "superOven" | "omegaOven" | "gigaOven" | "ultraOven";
+export type UpgradeKeys =
+  "toaster" |
+  "toasterOven" |
+  "oven" |
+  "industrialOven" |
+  "superOven" |
+  "omegaOven" |
+  "gigaOven" |
+  "ultraOven" |
+  "lavaPit" |
+  "infernoPit" |
+  "hellPit" |
+  "tacoBell";
 
 export type upgradeCostsType = {
   toaster: {
@@ -52,50 +68,27 @@ export type upgradeCostsType = {
     display: string;
     value: number;
   }
+  lavaPit: {
+    cost: number;
+    display: string;
+    value: number;
+  },
+  infernoPit: {
+    cost: number;
+    display: string;
+    value: number;
+  },
+  hellPit: {
+    cost: number;
+    display: string;
+    value: number;
+  },
+  tacoBell: {
+    cost: number;
+    display: string;
+    value: number;
+  }
 }
-
-// export const upgradeCosts = {
-//   toaster: {
-//     cost: 8,
-//     display: "Toaster",
-//     value: 2
-//   },
-//   toasterOven: {
-//     cost: 32,
-//     display: "Toaster Oven",
-//     value: 8
-//   },
-//   oven: {
-//     cost: 128,
-//     display: "Oven",
-//     value: 32
-//   },
-//   industrialOven: {
-//     cost: 512,
-//     display: "Industrial Oven",
-//     value: 128
-//   },
-//   superOven: {
-//     cost: 2048,
-//     display: "Super Oven",
-//     value: 512
-//   },
-//   omegaOven: {
-//     cost: 8192,
-//     display: "Omega Oven",
-//     value: 2048
-//   },
-//   gigaOven: {
-//     cost: 32768,
-//     display: "Giga Oven",
-//     value: 8192
-//   },
-//   ultraOven: {
-//     cost: 131072,
-//     display: "Ultra Oven",
-//     value: 32768
-//   },
-// };
 
 export const upgradeCosts = {
   toaster: {
@@ -159,3 +152,46 @@ export const upgradeCosts = {
     value: 67108864
   }
 };
+
+// export const upgradeCosts = {
+//   toaster: {
+//     cost: 8,
+//     display: "Toaster",
+//     value: 2
+//   },
+//   toasterOven: {
+//     cost: 32,
+//     display: "Toaster Oven",
+//     value: 8
+//   },
+//   oven: {
+//     cost: 128,
+//     display: "Oven",
+//     value: 32
+//   },
+//   industrialOven: {
+//     cost: 512,
+//     display: "Industrial Oven",
+//     value: 128
+//   },
+//   superOven: {
+//     cost: 2048,
+//     display: "Super Oven",
+//     value: 512
+//   },
+//   omegaOven: {
+//     cost: 8192,
+//     display: "Omega Oven",
+//     value: 2048
+//   },
+//   gigaOven: {
+//     cost: 32768,
+//     display: "Giga Oven",
+//     value: 8192
+//   },
+//   ultraOven: {
+//     cost: 131072,
+//     display: "Ultra Oven",
+//     value: 32768
+//   },
+// };

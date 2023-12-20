@@ -4,7 +4,7 @@ function ButtonDynamic(upgrade: {
   display: string;
   cost: number;
   value: number;
-  key: string;
+  id: string;
   buyUpgrade: Function;
 }) {
   if (
@@ -14,10 +14,9 @@ function ButtonDynamic(upgrade: {
   ) {
     return (
       <button
-        key={upgrade.key}
         className="btn btn-red"
         onClick={() => {
-          upgrade.buyUpgrade(`${upgrade.key}`);
+          upgrade.buyUpgrade(`${upgrade.id}`);
         }}>
         <p>{upgrade.display}</p>
         <div className="flex justify-around">
@@ -29,10 +28,9 @@ function ButtonDynamic(upgrade: {
   } else {
     return (
       <button
-        key={upgrade.key}
         className="btn btn-blue"
         onClick={() => {
-          upgrade.buyUpgrade(`${upgrade.key}`);
+          upgrade.buyUpgrade(`${upgrade.id}`);
         }}>
         <p>{upgrade.display}</p>
         <div className="flex justify-around">
@@ -56,6 +54,7 @@ export default function UpgradeList(props: {
           {Object.entries(props.upgradeCosts).map(([key, upgrade]) => (
             <ButtonDynamic
               key={key}
+              id={key}
               display={upgrade.display}
               cost={upgrade.cost}
               value={upgrade.value}
