@@ -10,6 +10,44 @@ export type upgradeType = {
 
 export type UpgradeKeys = "toaster" | "toasterOven" | "oven" | "industrialOven" | "superOven" | "omegaOven" | "gigaOven";
 
+export type upgradeCostsType = {
+  toaster: {
+    cost: number;
+    display: string;
+    value: number;
+  };
+  toasterOven: {
+    cost: number;
+    display: string;
+    value: number;
+  };
+  oven: {
+    cost: number;
+    display: string;
+    value: number;
+  };
+  industrialOven: {
+    cost: number;
+    display: string;
+    value: number;
+  };
+  superOven: {
+    cost: number;
+    display: string;
+    value: number;
+  };
+  omegaOven: {
+    cost: number;
+    display: string;
+    value: number;
+  };
+  gigaOven: {
+    cost: number;
+    display: string;
+    value: number;
+  };
+}
+
 export const upgradeCosts = {
   toaster: {
     cost: 8,

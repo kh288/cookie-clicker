@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { upgradeCosts } from "./data/upgrades";
 import DisplayResources from "./components/DisplayResources";
 import type { upgradeType, UpgradeKeys } from "./data/upgrades";
+import ButtonGroup from "./components/ButtonGroup";
+import UpgradeList from "./components/UpgradeList";
+import CookiesPerSecond from "./components/CookiesPerSecond";
+import DisplayUpgrades from "./components/DisplayUpgrades";
 
 function App() {
   const [cookies, setCookies] = useState(0);
@@ -70,60 +74,20 @@ function App() {
       <div className="grid gap-2 p-3">
         <h1 className="text-center text-4xl">Cookie Clicker</h1>
 
-        <div className="grid">
-          <h2 className="text-2xl">Your upgrades</h2>
-          {Object.entries(currentUpgrades).map(([key, value]) => (
-            <p key={key}>
-              {/* @ts-ignore TODO: FIX THIS TYPE ISSUE */}
-              {upgradeCosts[key].display}: {value}
-            </p>
-          ))}
-        </div>
-
-        <div className="rounded rim-light p-2 bg-slate-600">
-          <h2 className="text-4xl grid justify-end">
-            {cookieRate.toLocaleString("en-US")} 🍪/s
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 items-center">
-          {Object.entries(upgradeCosts).map(([key, upgrade]) => (
-            <button
-              key={key}
-              className="btn btn-blue"
-              onClick={() => {
-                buyUpgrade(`${key}`);
-              }}>
-              <p>{upgrade.display}</p>
-              <div className="flex justify-around">
-                <p>${upgrade.cost.toLocaleString("en-US")}</p>
-                <p>{upgrade.value} 🍪/s</p>
-              </div>
-            </button>
-          ))}
-        </div>
-
+        <DisplayUpgrades currentUpgrades={currentUpgrades} />
+        <CookiesPerSecond cookieRate={cookieRate} />
+        <UpgradeList
+          upgradeCosts={upgradeCosts}
+          buyUpgrade={buyUpgrade}
+        />
         <DisplayResources
           money={money}
           cookies={cookies}
         />
-
-        <div className="flex gap-2">
-          <button
-            onClick={() => {
-              sellCookies();
-            }}
-            className="btn btn-green w-full">
-            Sell Cookies
-          </button>
-          <button
-            onClick={() => {
-              addCookies(1);
-            }}
-            className="btn btn-red w-full">
-            Bake Cookie
-          </button>
-        </div>
+        <ButtonGroup
+          buttonAction1={sellCookies}
+          buttonAction2={addCookies}
+        />
       </div>
     </main>
   );

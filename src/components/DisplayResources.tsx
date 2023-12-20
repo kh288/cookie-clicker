@@ -16,7 +16,7 @@ export default function DisplayResources(props: {
     } else {
       setMoneyChanged(false);
     }
-    setTimeout(() => setMoneyChanged(false), 150); // Reset after animation
+    setTimeout(() => setMoneyChanged(false), 150);
     setMoneyTrack(props.money);
   }, [props.money]);
 
@@ -26,7 +26,7 @@ export default function DisplayResources(props: {
     } else {
       setCookiesChanged(false);
     }
-    setTimeout(() => setCookiesChanged(false), 150); // Reset after animation
+    setTimeout(() => setCookiesChanged(false), 150);
     setCookiesTrack(props.cookies);
   }, [props.cookies]);
 
