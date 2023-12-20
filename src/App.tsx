@@ -11,6 +11,7 @@ function App() {
   const [cookies, setCookies] = useState(0);
   const [money, setMoney] = useState(0);
   const [cookieRate, setCookieRate] = useState(0);
+  const [cookieWorth, setCookieWorth] = useState(1);
   const [currentUpgrades, setCurrentUpgrades] = useState<upgradeType>({
     toaster: 0,
     toasterOven: 0,
@@ -19,6 +20,7 @@ function App() {
     superOven: 0,
     omegaOven: 0,
     gigaOven: 0,
+    ultraOven: 0,
   });
 
   function addCookies(input: number) {
@@ -84,9 +86,10 @@ function App() {
           money={money}
           cookies={cookies}
         />
-        <ButtonGroup
+        <ButtonGroup // Sell and Bake cookies
           buttonAction1={sellCookies}
           buttonAction2={addCookies}
+          buttonAction2Modifier={cookieWorth}
         />
       </div>
     </main>
