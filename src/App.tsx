@@ -11,7 +11,8 @@ function App() {
   const [cookies, setCookies] = useState(0);
   const [money, setMoney] = useState(0);
   const [cookieRate, setCookieRate] = useState(0);
-  const [cookieWorth, setCookieWorth] = useState(1);
+  // const [cookieWorth, setCookieWorth] = useState(1);
+  const cookieWorth = 1;
   const [currentUpgrades, setCurrentUpgrades] = useState<upgradeType>({
     toaster: 0,
     toasterOven: 0,
@@ -26,6 +27,11 @@ function App() {
     hellPit: 0,
     tacoBell: 0,
   });
+
+  // Going to upgrade the worth of cookies
+  // function upgradeCookieWorth() {
+  //   setCookieRate(cookieWorth + 1);
+  // }
 
   function addCookies(input: number) {
     setCookies(cookies + input);
