@@ -80,8 +80,7 @@ function App() {
           ))}
         </div>
 
-        <div className="rounded rim-light p-2 bg-slate-700">
-          <p className="text-center">Cookies per second</p>
+        <div className="rounded rim-light p-2 bg-slate-600">
           <h2 className="text-4xl grid justify-end">
             {cookieRate.toLocaleString("en-US")} 🍪/s
           </h2>
